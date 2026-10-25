@@ -15,7 +15,7 @@ As versões das dependências Java são gerenciadas pelo Spring Boot. O frontend
 
 - `factory-events-backend/`: API Java e testes de integração.
 - `factory-events-frontend/`: interface React e testes de interface.
-- `docs/`: decisões técnicas, OpenAPI e coleção do Insomnia.
+- `insomnia.json`: coleção do Insomnia.
 - `scripts/`: execução dos testes E2E.
 - `compose.yaml`: PostgreSQL local.
 
@@ -191,13 +191,12 @@ Com o backend iniciado:
 
 - Interface: http://localhost:8080/swagger-ui/index.html (ou /swagger-ui.html).
 - Especificação JSON: http://localhost:8080/v3/api-docs.
-- Cópia exportada da especificação: [docs/openapi.json](docs/openapi.json).
 
 A documentação descreve as operações de equipamentos, cadastro manual e consultas, incluindo respostas de erro. A especificação é gerada a partir dos controllers e DTOs, reduzindo divergência em relação ao código.
 
 ## Coleção do Insomnia
 
-Importe [docs/insomnia.json](docs/insomnia.json) usando Import → File. A coleção contém ambiente local, cadastro PRODUCTION/QUALITY, duplicidade, validação, cadastro manual, consultas, saúde, métricas e OpenAPI.
+Importe [insomnia.json](insomnia.json) usando Import → File. A coleção contém ambiente local, cadastro PRODUCTION/QUALITY, duplicidade, validação, cadastro manual, consultas, saúde, métricas e OpenAPI.
 
 O ambiente define base_url, event_id, quality_id e request_id. Para novos cadastros externos, altere os IDs. Para testar duplicidade, mantenha o mesmo ID. No cadastro manual, mantenha request_id e conteúdo para testar reenvio; para outro cadastro, use um UUID novo. A coleção usa apenas dados e credenciais locais de exemplo.
 
