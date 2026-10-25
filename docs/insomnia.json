@@ -1,0 +1,420 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-10-25T04:36:52.653678+00:00",
+  "__export_source": "factory-events",
+  "resources": [
+    {
+      "_id": "wrk_factory_events",
+      "_type": "workspace",
+      "name": "Eventos da fábrica",
+      "description": "API local: equipamentos, cadastro manual, consultas e observabilidade.",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_factory_base",
+      "_type": "environment",
+      "parentId": "wrk_factory_events",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "event_id": "INSOMNIA-PRODUCTION-001",
+        "quality_id": "INSOMNIA-QUALITY-001",
+        "request_id": "0ee872ea-e379-46f5-9486-e6a9ad2ab702"
+      },
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false
+    },
+    {
+      "_id": "fld_equipment",
+      "_type": "request_group",
+      "parentId": "wrk_factory_events",
+      "name": "Equipamentos"
+    },
+    {
+      "_id": "fld_manual",
+      "_type": "request_group",
+      "parentId": "wrk_factory_events",
+      "name": "Cadastro manual"
+    },
+    {
+      "_id": "fld_queries",
+      "_type": "request_group",
+      "parentId": "wrk_factory_events",
+      "name": "Consultas"
+    },
+    {
+      "_id": "fld_ops",
+      "_type": "request_group",
+      "parentId": "wrk_factory_events",
+      "name": "Observabilidade e documentação"
+    },
+    {
+      "_id": "req_production",
+      "_type": "request",
+      "parentId": "fld_equipment",
+      "name": "01 — Cadastrar PRODUCTION (201)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/events",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"eventId\": \"{{ _.event_id }}\",\n  \"eventType\": \"PRODUCTION\",\n  \"description\": \"Linha de produção iniciada pelo Insomnia\",\n  \"timestamp\": \"2026-05-20T10:00:00-03:00\"\n}"
+      },
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_duplicate",
+      "_type": "request",
+      "parentId": "fld_equipment",
+      "name": "02 — Repetir o mesmo evento (409)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/events",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"eventId\": \"{{ _.event_id }}\",\n  \"eventType\": \"PRODUCTION\",\n  \"description\": \"Linha de produção iniciada pelo Insomnia\",\n  \"timestamp\": \"2026-05-20T10:00:00-03:00\"\n}"
+      },
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_quality",
+      "_type": "request",
+      "parentId": "fld_equipment",
+      "name": "03 — Cadastrar QUALITY (201)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/events",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"eventId\": \"{{ _.quality_id }}\",\n  \"eventType\": \"QUALITY\",\n  \"description\": \"Linha de produção iniciada pelo Insomnia\",\n  \"timestamp\": \"2026-05-20T10:00:00-03:00\"\n}"
+      },
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_invalid",
+      "_type": "request",
+      "parentId": "fld_equipment",
+      "name": "04 — Descrição inválida (400)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/events",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"eventId\": \"INVALID-001\",\n  \"eventType\": \"PRODUCTION\",\n  \"description\": \"\",\n  \"timestamp\": \"2026-05-20T10:00:00-03:00\"\n}"
+      },
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_preview",
+      "_type": "request",
+      "parentId": "fld_manual",
+      "name": "01 — Prévia do próximo ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/events/manual/next-id",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_manual",
+      "_type": "request",
+      "parentId": "fld_manual",
+      "name": "02 — Cadastrar ou repetir tentativa (201)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/events/manual",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"requestId\": \"{{ _.request_id }}\",\n  \"eventType\": \"QUALITY\",\n  \"description\": \"Inspeção manual pelo Insomnia\",\n  \"timestamp\": \"2026-05-20T10:05:00-03:00\"\n}"
+      },
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_conflict",
+      "_type": "request",
+      "parentId": "fld_manual",
+      "name": "03 — Mesmo requestId, outro conteúdo (409)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/events/manual",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"requestId\": \"{{ _.request_id }}\",\n  \"eventType\": \"QUALITY\",\n  \"description\": \"Conteúdo diferente\",\n  \"timestamp\": \"2026-05-20T10:05:00-03:00\"\n}"
+      },
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_list",
+      "_type": "request",
+      "parentId": "fld_queries",
+      "name": "Lista paginada",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/events?page=0&size=10",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_one",
+      "_type": "request",
+      "parentId": "fld_queries",
+      "name": "Consultar evento cadastrado",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/events/{{ _.event_id }}",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_missing",
+      "_type": "request",
+      "parentId": "fld_queries",
+      "name": "Evento inexistente (404)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/events/DOES-NOT-EXIST",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_method",
+      "_type": "request",
+      "parentId": "fld_queries",
+      "name": "Método inválido (405)",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/events",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_health",
+      "_type": "request",
+      "parentId": "fld_ops",
+      "name": "Saúde",
+      "method": "GET",
+      "url": "{{ _.base_url }}/actuator/health",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_metrics",
+      "_type": "request",
+      "parentId": "fld_ops",
+      "name": "Métricas disponíveis",
+      "method": "GET",
+      "url": "{{ _.base_url }}/actuator/metrics",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_registered",
+      "_type": "request",
+      "parentId": "fld_ops",
+      "name": "Eventos confirmados",
+      "method": "GET",
+      "url": "{{ _.base_url }}/actuator/metrics/factory.events.registered",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_duplicates",
+      "_type": "request",
+      "parentId": "fld_ops",
+      "name": "Duplicidades rejeitadas",
+      "method": "GET",
+      "url": "{{ _.base_url }}/actuator/metrics/factory.events.duplicates",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_replays",
+      "_type": "request",
+      "parentId": "fld_ops",
+      "name": "Reenvios manuais",
+      "method": "GET",
+      "url": "{{ _.base_url }}/actuator/metrics/factory.events.replays",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_errors",
+      "_type": "request",
+      "parentId": "fld_ops",
+      "name": "Erros HTTP 5xx",
+      "method": "GET",
+      "url": "{{ _.base_url }}/actuator/metrics/factory.api.requests?tag=outcome:server_error",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_openapi",
+      "_type": "request",
+      "parentId": "fld_ops",
+      "name": "Especificação OpenAPI",
+      "method": "GET",
+      "url": "{{ _.base_url }}/v3/api-docs",
+      "headers": [
+        {
+          "name": "X-Correlation-ID",
+          "value": "insomnia-demo"
+        }
+      ],
+      "body": {},
+      "parameters": [],
+      "authentication": {},
+      "settingFollowRedirects": "global"
+    }
+  ]
+}
