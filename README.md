@@ -15,7 +15,7 @@ As versões das dependências Java são gerenciadas pelo Spring Boot. O frontend
 
 - `factory-events-backend/`: API Java e testes de integração.
 - `factory-events-frontend/`: interface React e testes de interface.
-- `insomnia.json`: collecton de execução. 
+- `insomnia.json`: collection de execução. 
 - `scripts/`: execução dos testes E2E.
 - `compose.yaml`: PostgreSQL local.
 
